@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Ubao</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_favourites">Favourites</string>
+    <string name="action_logout">Logout</string>
+
+    <string-array name="drawer_items">
+        <item>Explore</item>
+        <item>Stand</item>
+        <item>Settings</item>
+        <item>About</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="desc_list_item">contents</string>
+    <string name="info_item">Profile</string>
+    <string name="test_text">Launch of the most exciting News application that ignites all news from your favorite blogs and Sites in Tanzania</string>
+    <string name="app_desc">Ubao is a news app that scrapes web Content around the Internet from your favourite News sources</string>
+    <string name="feedback_button">SEND FEEDBACK</string>
+    <string name="dummy_header_text">The Official Chereko Chereko video from Cpwaa</string>
+
+    <string-array name="spinner_items">
+        <item>News</item>
+        <item>Showbiz</item>
+        <item>Sports</item>
+    </string-array>
+
+    <string name="title_activity_read">Read</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ripe_orange">#F7931E</color>
+    <color name="light_blue">#7BE5FF</color>
+    <color name="dark_purple">#BA63FF</color>
+    <color name="unknown">#FFF7F7E9</color>
+    <color name="header_color">#ff071e30</color>
+    <color name="listview_background_color">#c5c4c4</color>
+    <color name="counter_text_color">#c5c4c4</color>
+</resources>

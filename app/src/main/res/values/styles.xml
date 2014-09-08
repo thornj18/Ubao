@@ -1,0 +1,20 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:listViewStyle">@style/AppTheme.DarkBackgroud</item>
+    </style>
+
+    <style name="AppTheme.DarkBackgroud">
+        <item name="android:background">@color/listview_background_color</item>
+        
+    </style>
+    <style name="CardStyle" >
+        <item name="android:background">@drawable/search_bg_shadow</item>
+
+    </style>
+
+
+
+</resources>
