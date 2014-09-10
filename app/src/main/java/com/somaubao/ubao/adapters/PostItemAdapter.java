@@ -1,6 +1,9 @@
 package com.somaubao.ubao.adapters;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +17,12 @@ import com.somaubao.ubao.parser.RssParser;
 import com.somaubao.ubao.R;
 import com.somaubao.ubao.models.PostItem;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,6 +41,21 @@ public class PostItemAdapter extends BaseAdapter {
         this.dataSource = dataSource;
         this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+    public Bitmap loadImage(String url) {
+        DefaultHttpClient client = new DefaultHttpClient();
+        Bitmap bitmap = null;
+        try {
+            HttpResponse response = client.execute(new HttpGet(url));
+            HttpEntity entity = response.getEntity();
+            if(entity != null) {
+                InputStream in = entity.getContent();
+                bitmap = BitmapFactory.decodeStream(in);
+            }
+        }
+        catch (Exception e) {
+        }
+        return bitmap;
     }
 
     @Override
@@ -67,7 +91,10 @@ public class PostItemAdapter extends BaseAdapter {
         PostItem postItem = dataSource.get(i);
         holder.articleTitleText.setText(postItem.post_Title);
         holder.articlePublishDateText.setText(postItem.post_Time);
-        holder.articleImage.setImageURI(Uri.parse(postItem.post_Link));
+        //holder.articleImage.setImageBitmap(BitmapFactory.decodeFile(postItem.post_ImageURL));
+       // holder.articleImage.setImageDrawable(Drawable.createFromPath(postItem.post_ImageURL));
+       // holder.articleImage.setImageURI(Uri.parse(postItem.post_ImageURL));
+        holder.articleImage.setImageBitmap(loadImage(postItem.post_ImageURL));
         holder.articlePublisher.setText("Michuzi Blog");
         return row;
     }

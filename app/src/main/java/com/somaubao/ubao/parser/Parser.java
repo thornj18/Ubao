@@ -32,6 +32,7 @@ public class Parser {
         this.urlString = urlString;
     }
 
+    //The Method below initiates the internet connection
     private InputStream downloadUrl(String urlString) throws IOException {
         URL url = new URL(urlString);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -44,7 +45,7 @@ public class Parser {
         InputStream stream = conn.getInputStream();
         return stream;
     }
-
+// The parse method takes care of pulling data each tag in the Xml document and stores the results in an arraylist
     public List<PostItem> parse() {
         List<PostItem> postIitemList = null;
         try {
@@ -92,8 +93,9 @@ public class Parser {
                         if (tagName.equals("channel")) {
                             done = true;
                         } else if (tagName.equals("item")) {
-                            postItem = new PostItem(post_Title, post_Link, post_Time, post_description, post_ImageURL);
+                            postItem = new PostItem(post_Title,post_ImageURL, post_Time,post_Link, post_description);
                             postIitemList.add(postItem);
+                            Log.d("The Image links are:", post_ImageURL);
                         }
                         break;
                 }
@@ -147,6 +149,7 @@ public class Parser {
             result = parser.getText();
                parser.nextTag();
         }
+        //Hence this result is sent to the PostItemAdapter indorf
             return result;
     }
 }

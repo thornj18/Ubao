@@ -42,6 +42,7 @@ public class Explore extends Fragment {
 
     }
 
+    //news sources with there rss links are declared here
     public static final String MICHUZIBLOG ="http://issamichuzi.blogspot.com/feeds/posts/default?alt=rss";
 
     @Override
@@ -72,21 +73,11 @@ public class Explore extends Fragment {
 
         postItems = new ArrayList<PostItem>();
 
-        if (isNetworkAvailable()){
-
+        //The URL is passed here
         new ParseFeed().execute(MICHUZIBLOG);
         feedView.setAdapter(postItemAdapter);
 
-        }
-        else{
-
-            Toast.makeText(getActivity(),"Ooops! Network is Unavailable",Toast.LENGTH_SHORT ).show();
-
-        }
-
         return rootView;
-
-
     }
 
     private boolean isNetworkAvailable() {
@@ -102,6 +93,7 @@ public class Explore extends Fragment {
     }
 
 
+    //Everything is being executed in the background thread, The method parse from the Parser is called here
     public class ParseFeed extends AsyncTask<String, Void, List<PostItem>>{
 
         @Override
@@ -126,6 +118,7 @@ public class Explore extends Fragment {
         @Override
         protected void onPostExecute(final List<PostItem> postItems) {
 
+            //Adapter is set
             postItemAdapter = new PostItemAdapter(getActivity(),R.layout.post_layout,postItems);
             int count = postItemAdapter.getCount();
             if (count != 0 && postItemAdapter != null ){
@@ -137,6 +130,7 @@ public class Explore extends Fragment {
 
 
             }
+            //The link retrieved from each post is passed on via intents into the page where the user reads the article.
             feedView.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
