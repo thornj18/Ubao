@@ -14,6 +14,24 @@
         <item name="android:background">@drawable/search_bg_shadow</item>
 
     </style>
+    <style name="textbox">
+        <item name="android:background"> #00000000</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingTop">12dp</item>
+
+        <item name="android:gravity">center</item>
+
+    </style>
+    <style name="textboxline">
+        <item name="android:height">2dp</item>
+
+        <item name="android:background">@color/cat_red</item>
+    </style>
+    <style name="card">
+        <item name="android:background">@drawable/card_layout</item>
+        <item name="android:minWidth">250dp</item>
+        <item name="android:minHeight">40dp</item>
+    </style>
 
 
 

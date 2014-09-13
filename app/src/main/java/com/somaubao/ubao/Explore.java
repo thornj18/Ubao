@@ -73,10 +73,12 @@ public class Explore extends Fragment {
 
         postItems = new ArrayList<PostItem>();
 
-        //The URL is passed here
-        new ParseFeed().execute(MICHUZIBLOG);
-        feedView.setAdapter(postItemAdapter);
-
+        if (isNetworkAvailable()) {
+            ParseFeed parseFeed = new ParseFeed();
+            parseFeed.execute(MICHUZIBLOG);
+        }else{
+            Toast.makeText(getActivity(), "Internet Connection Unavailable",Toast.LENGTH_SHORT).show();
+        }
         return rootView;
     }
 
@@ -104,6 +106,8 @@ public class Explore extends Fragment {
 
         @Override
         protected List<PostItem> doInBackground(String... params) {
+
+
             for (String urlVal:params){
                 parser = new Parser(urlVal);
             }

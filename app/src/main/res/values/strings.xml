@@ -5,6 +5,15 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_favourites">Favourites</string>
     <string name="action_logout">Logout</string>
+    <string name="username"> Username</string>
+    <string name="submit">S U B M I T </string>
+    <string name="fill">F I L L \u00A0 \u00A0   U P </string>
+    <string name="email">Email</string>
+    <string name="password"> Password</string>
+    <string name="reset">Forgot the password? reset here!!</string>
+    <string name="login"> L O G \u00A0 I N </string>
+    <string name="signup">S I G N \u00A0  U P</string>
+
 
     <string-array name="drawer_items">
         <item>Explore</item>
