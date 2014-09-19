@@ -3,7 +3,6 @@ package com.somaubao.ubao.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.somaubao.ubao.parser.RssParser;
 import com.somaubao.ubao.R;
 import com.somaubao.ubao.models.PostItem;
 
@@ -23,8 +21,6 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**

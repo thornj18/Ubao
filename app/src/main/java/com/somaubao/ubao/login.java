@@ -6,7 +6,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -25,7 +24,7 @@ public class login extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		setContentView(R.layout.activity_login);
 		
 		mail = (EditText) findViewById(R.id.txtemaillg);
 		pass = (EditText) findViewById(R.id.txtpasswordlg);
@@ -45,6 +44,12 @@ public class login extends Activity{
 			}
 		});
 	}
+
+    public void pressed(View view) {
+        //On the event of a forgotten password
+        Toast.makeText(this, "Dumbass", Toast.LENGTH_SHORT).show();
+    }
+
     private class validateUserTask  extends AsyncTask<String , Void, String>{
 
 		@Override
@@ -90,11 +95,6 @@ public class login extends Activity{
 				
 			}
 		}
-    	
-    	
-    }
-	
-    public void pressed(){
     	
     	
     }

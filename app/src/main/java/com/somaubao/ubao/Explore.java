@@ -1,7 +1,9 @@
 package com.somaubao.ubao;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -17,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.somaubao.ubao.parser.Parser;
-import com.somaubao.ubao.parser.RssParser;
 import com.somaubao.ubao.adapters.PostItemAdapter;
 import com.somaubao.ubao.models.PostItem;
 import java.util.ArrayList;
@@ -25,11 +26,9 @@ import java.util.List;
 
 public class Explore extends Fragment {
     private ListView feedView;
-    private RssParser rssParser;
     private Parser parser;
-    private List<PostItem> postItems;
+    protected List<PostItem> postItems;
     private PostItemAdapter postItemAdapter;
-
 
     public Explore() {
 
@@ -44,6 +43,8 @@ public class Explore extends Fragment {
 
     //news sources with there rss links are declared here
     public static final String MICHUZIBLOG ="http://issamichuzi.blogspot.com/feeds/posts/default?alt=rss";
+    public static final String SHAFIHDAUDA ="http://shaffihdauda.com/?feed=rss2";
+    public static final String MISSIPOPULAR ="http://feeds.feedburner.com/MissiePopular?format=xml";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +63,41 @@ public class Explore extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
+                switch (i){
+                    case 0:
+                       // Toast.makeText(getActivity(), "News clicked", Toast.LENGTH_SHORT).show();
+                        if (isNetworkAvailable()) {
+                            ParseFeed parseFeed = new ParseFeed();
+                            parseFeed.execute(MICHUZIBLOG);
+
+                        }else{
+                            Toast.makeText(getActivity(), "Internet Connection Unavailable",Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                    case 1:
+                        //Toast.makeText(getActivity(), "Showbiz", Toast.LENGTH_SHORT).show();
+                        if (isNetworkAvailable()) {
+                            ParseFeed parseFeed = new ParseFeed();
+                            parseFeed.execute(MISSIPOPULAR);
+
+                        }else{
+                            Toast.makeText(getActivity(), "Internet Connection Unavailable",Toast.LENGTH_LONG).show();
+                        }
+
+                        break;
+                    case 2:
+                        //Toast.makeText(getActivity(), "Sports", Toast.LENGTH_SHORT).show();
+
+                        if (isNetworkAvailable()) {
+                            ParseFeed parseFeed = new ParseFeed();
+                            parseFeed.execute(SHAFIHDAUDA);
+
+                        }else{
+                            Toast.makeText(getActivity(), "Internet Connection Unavailable",Toast.LENGTH_LONG).show();
+                        }
+                        break;
+                }
+
             }
 
 
@@ -73,12 +109,7 @@ public class Explore extends Fragment {
 
         postItems = new ArrayList<PostItem>();
 
-        if (isNetworkAvailable()) {
-            ParseFeed parseFeed = new ParseFeed();
-            parseFeed.execute(MICHUZIBLOG);
-        }else{
-            Toast.makeText(getActivity(), "Internet Connection Unavailable",Toast.LENGTH_SHORT).show();
-        }
+
         return rootView;
     }
 
@@ -94,6 +125,29 @@ public class Explore extends Fragment {
         return isAvailable;
     }
 
+    private void updateList() {
+
+        if (postItems == null){
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle(getString(R.string.error_title));
+            builder.setMessage(getString(R.string.error_message));
+            builder.setPositiveButton(getString(R.string.retry), null);
+            builder.setNegativeButton(android.R.string.ok, null);
+            AlertDialog dialog = builder.create();
+            dialog.show();
+
+        }else {
+
+            postItemAdapter = new PostItemAdapter(getActivity(),R.layout.post_layout,postItems);
+            int count = postItemAdapter.getCount();
+
+            if (count != 0) {
+                feedView.setAdapter(postItemAdapter);
+            }
+               postItemAdapter.notifyDataSetChanged();
+        }
+    }
+
 
     //Everything is being executed in the background thread, The method parse from the Parser is called here
     public class ParseFeed extends AsyncTask<String, Void, List<PostItem>>{
@@ -107,6 +161,7 @@ public class Explore extends Fragment {
         @Override
         protected List<PostItem> doInBackground(String... params) {
 
+            postItems = null;
 
             for (String urlVal:params){
                 parser = new Parser(urlVal);
@@ -120,39 +175,31 @@ public class Explore extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(final List<PostItem> postItems) {
-
-            //Adapter is set
-            postItemAdapter = new PostItemAdapter(getActivity(),R.layout.post_layout,postItems);
-            int count = postItemAdapter.getCount();
-            if (count != 0 && postItemAdapter != null ){
-                feedView.setAdapter(postItemAdapter);
-
-                postItemAdapter.notifyDataSetChanged();
-            }else {
-                super.onPostExecute(postItems);
-
-
-            }
-            //The link retrieved from each post is passed on via intents into the page where the user reads the article.
-            feedView.setOnItemClickListener(new OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    PostItem data = postItems.get(i);
-
-                    Bundle postinfo = new Bundle();
-                    postinfo.putString("link", data.post_Link);
-                    postinfo.putString("title", data.post_Title);
-
-                    //Intent  postviewIntent = new Intent(getActivity(), PostViewActivity.class);
-                    //postviewIntent.putExtras(postinfo);
-                    //startActivity(postviewIntent);
-
-                }
-            });
+        protected void onPostExecute(final List<PostItem> results) {
+            postItems = results;
+            updateList();
+            feedView.setOnItemClickListener(new postClicked());
 
         }
+
+        private class postClicked implements OnItemClickListener {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                PostItem data = postItems.get(i);
+
+                   Bundle postinfo = new Bundle();
+                                 postinfo.putString("link", data.post_Link);
+                                 postinfo.putString("title", data.post_Title);
+                                 postinfo.putString("description", data.post_description);
+                Intent readPost = new Intent(getActivity(), Postview.class);
+                readPost.putExtras(postinfo);
+                startActivity(readPost);
+            }
+        }
     }
+
+
 
 
 }

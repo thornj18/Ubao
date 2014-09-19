@@ -12,9 +12,8 @@ public class Start extends Activity implements OnClickListener{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.start);
+		setContentView(R.layout.activity_start);
 		Button login = (Button) findViewById(R.id.btnlogin);
 		Button sign = (Button) findViewById(R.id.btnsignup);
 		
@@ -27,7 +26,6 @@ public class Start extends Activity implements OnClickListener{
 	}
 	@Override
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
 		Intent mt ;
 		switch (v.getId()) {
 		case R.id.btnlogin:

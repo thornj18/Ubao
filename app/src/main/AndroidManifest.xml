@@ -19,6 +19,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Read"
             android:label="@string/title_activity_read"
@@ -27,6 +28,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.somaubao.ubao.ubao" />
         </activity>
+
+        <activity android:name=".login" android:label="@string/activity_login">
+            </activity>
+
+        <activity android:name=".Signup" android:label="@string/activity_signup">
+           </activity>
+
+        <activity android:name=".Subscriptions" android:label="@string/activity_subscriptions">
+            </activity>
+
+        <activity android:name=".Start" android:label="@string/activity_start">
+            </activity>
+
+        <activity android:name=".Postview" android:label="@string/Postview">
+        </activity>
+
     </application>
 
 </manifest>

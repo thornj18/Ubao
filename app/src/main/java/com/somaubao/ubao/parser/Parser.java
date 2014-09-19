@@ -95,7 +95,7 @@ public class Parser {
                         } else if (tagName.equals("item")) {
                             postItem = new PostItem(post_Title,post_ImageURL, post_Time,post_Link, post_description);
                             postIitemList.add(postItem);
-                            Log.d("The Image links are:", post_ImageURL);
+                           // Log.d("The Image links are:", post_ImageURL);
                         }
                         break;
                 }
