@@ -3,7 +3,10 @@ package com.somaubao.ubao.adapters;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +23,12 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -38,20 +46,20 @@ public class PostItemAdapter extends BaseAdapter {
         this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
-    public Bitmap loadImage(String url) {
-        DefaultHttpClient client = new DefaultHttpClient();
+    public Bitmap DownloadImage (String... URL){
+        String imageURL = URL[0];
+
         Bitmap bitmap = null;
         try {
-            HttpResponse response = client.execute(new HttpGet(url));
-            HttpEntity entity = response.getEntity();
-            if(entity != null) {
-                InputStream in = entity.getContent();
-                bitmap = BitmapFactory.decodeStream(in);
-            }
-        }
-        catch (Exception e) {
+            // Download Image from URL
+            InputStream input = new java.net.URL(imageURL).openStream();
+            // Decode Bitmap
+            bitmap = BitmapFactory.decodeStream(input);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return bitmap;
+
     }
 
     @Override
@@ -87,11 +95,13 @@ public class PostItemAdapter extends BaseAdapter {
         PostItem postItem = dataSource.get(i);
         holder.articleTitleText.setText(postItem.post_Title);
         holder.articlePublishDateText.setText(postItem.post_Time);
-        //holder.articleImage.setImageBitmap(BitmapFactory.decodeFile(postItem.post_ImageURL));
+       // holder.articleImage.setImageBitmap(BitmapFactory.decodeFile(postItem.post_ImageURL));
        // holder.articleImage.setImageDrawable(Drawable.createFromPath(postItem.post_ImageURL));
-       // holder.articleImage.setImageURI(Uri.parse(postItem.post_ImageURL));
-        holder.articleImage.setImageBitmap(loadImage(postItem.post_ImageURL));
-        holder.articlePublisher.setText("Michuzi Blog");
+       // holder.articleImage.setImageURI(Uri.parse("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif"));
+       // holder.articleImage.setImageBitmap(loadImage(postItem.post_ImageURL));
+        //holder.articleImage.setImageBitmap(getBitmapFromURL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif"));
+        //holder.articleImage.setImageBitmap(DownloadImage(postItem.post_ImageURL));
+        holder.articlePublisher.setText("MICHUZI BLOG");
         return row;
     }
 }
@@ -108,4 +118,6 @@ class MyHolder{
         articlePublisher = (TextView) view.findViewById(R.id.txtSource);
 
     }
+
 }
+

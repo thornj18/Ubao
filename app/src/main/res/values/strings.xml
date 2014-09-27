@@ -11,7 +11,7 @@
     <string name="email">Email</string>
     <string name="password"> Password</string>
     <string name="reset">Forgot the password? reset here!!</string>
-    <string name="login"> L O G \u00A0 I N </string>
+    <string name="login"> L O G I N </string>
     <string name="signup">S I G N \u00A0  U P</string>
     <string name="activity_subscriptions">Subscriptions</string>
     <string name="activity_start">Start</string>

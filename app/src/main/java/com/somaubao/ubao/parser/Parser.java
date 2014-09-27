@@ -1,5 +1,6 @@
 package com.somaubao.ubao.parser;
 
+import android.text.format.DateUtils;
 import android.util.Log;
 
 import com.somaubao.ubao.models.PostItem;
@@ -12,8 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +30,7 @@ public class Parser {
     private String post_description;
     private String post_ImageURL;
     private String post_Time;
+    SimpleDateFormat dateFormat;
 
     public Parser(String urlString) {
         this.urlString = urlString;
@@ -60,7 +64,8 @@ public class Parser {
             boolean done = false;
             PostItem postItem = new PostItem();
             postIitemList = new ArrayList<PostItem>();
-            SimpleDateFormat dateFormat = new SimpleDateFormat(
+
+             dateFormat = new SimpleDateFormat(
                           "EEE, DD MMM yyyy HH:mm");
             while (eventType != XmlPullParser.END_DOCUMENT && !done) {
                 String tagName = parser.getName();
@@ -93,9 +98,11 @@ public class Parser {
                         if (tagName.equals("channel")) {
                             done = true;
                         } else if (tagName.equals("item")) {
+
                             postItem = new PostItem(post_Title,post_ImageURL, post_Time,post_Link, post_description);
                             postIitemList.add(postItem);
-                           // Log.d("The Image links are:", post_ImageURL);
+                           //Log.d("The Image links are:", post_ImageURL);
+
                         }
                         break;
                 }
@@ -119,6 +126,7 @@ public class Parser {
                 parser.nextTag();
             }
         }
+        Log.d("The Image links are:", post_ImageURL);
         return ImageURL;
 
     }
@@ -133,8 +141,14 @@ public class Parser {
         return link;
     }
 
-    private String readDate(XmlPullParser parser) throws IOException, XmlPullParserException {
+    private String readDate(XmlPullParser parser) throws IOException, XmlPullParserException, ParseException {
         String date =  readText(parser);
+        Date postDate = dateFormat.parse(date);
+        //date = dateFormat.format(date);
+        long now = new Date().getTime();
+
+        date = DateUtils.getRelativeTimeSpanString(postDate.getTime(),now, DateUtils.SECOND_IN_MILLIS).toString();
+
         return date;
     }
 
