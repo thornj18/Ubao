@@ -18,7 +18,7 @@
     <string name="activity_login">Login</string>
     <string name="activity_signup">Sign Up</string>
     <string name="image_contentdesc">Content Description for every image</string>
-    <string name="subscriptions_header_message">Get Started by Selecting your Favourite News Source</string>
+    <string name="blogs_subscriptions_header_message">Get Started by selecting your favourite News sources</string>
     <string name="error_title">Oops</string>
     <string name="title_activity_read">Read</string>
     <string name="action_settings">Settings</string>
@@ -34,8 +34,7 @@
     <string name="app_desc">Ubao is a news app that scrapes web Content around the Internet from your favourite News sources</string>
     <string name="feedback_button">SEND FEEDBACK</string>
     <string name="dummy_header_text">The Official Chereko Chereko video from Cpwaa</string>
-
-
+    <string name="dialog_header">About this blog</string>
 
     <string-array name="drawer_items">
         <item>Explore</item>
@@ -43,12 +42,21 @@
         <item>Settings</item>
         <item>About</item>
     </string-array>
-
-
     <string-array name="spinner_items">
         <item>News</item>
         <item>Showbiz</item>
         <item>Sports</item>
     </string-array>
+
+    <string name="title_activity_newspaper_subscriptions">NewspaperSubscriptions</string>
+    <string name="newspaper_label">N E W S P A P E R S</string>
+    <string name="blogs_label">B L O G S</string>
+    <string name="empty_list">No items to displayed</string>
+
+    <string-array name="spinner_source">
+        <item>B L O G S</item>
+        <item>N E W S P A P E R S</item>
+    </string-array>
+
 
 </resources>

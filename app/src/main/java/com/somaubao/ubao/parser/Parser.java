@@ -1,7 +1,8 @@
 package com.somaubao.ubao.parser;
 
+
 import android.text.format.DateUtils;
-import android.util.Log;
+
 
 import com.somaubao.ubao.models.PostItem;
 
@@ -23,14 +24,13 @@ import java.util.List;
  * Created by Tonny on 9/5/2014.
  */
 public class Parser {
+    public String post_ImageURL;
+    SimpleDateFormat dateFormat;
     private String urlString;
-
     private String post_Title;
     private String post_Link;
     private String post_description;
-    private String post_ImageURL;
     private String post_Time;
-    SimpleDateFormat dateFormat;
 
     public Parser(String urlString) {
         this.urlString = urlString;
@@ -49,7 +49,8 @@ public class Parser {
         InputStream stream = conn.getInputStream();
         return stream;
     }
-// The parse method takes care of pulling data each tag in the Xml document and stores the results in an arraylist
+
+    // The parse method takes care of pulling data each tag in the Xml document and stores the results in an arraylist
     public List<PostItem> parse() {
         List<PostItem> postIitemList = null;
         try {
@@ -65,8 +66,8 @@ public class Parser {
             PostItem postItem = new PostItem();
             postIitemList = new ArrayList<PostItem>();
 
-             dateFormat = new SimpleDateFormat(
-                          "EEE, DD MMM yyyy HH:mm");
+            dateFormat = new SimpleDateFormat(
+                    "EEE, DD MMM yyyy HH:mm");
             while (eventType != XmlPullParser.END_DOCUMENT && !done) {
                 String tagName = parser.getName();
 
@@ -76,20 +77,15 @@ public class Parser {
                     case XmlPullParser.START_TAG:
                         if (tagName.equals("item")) {
                             postItem = new PostItem();
-                        }
-                        if (tagName.equalsIgnoreCase("title")) {
+                        } else if (tagName.equalsIgnoreCase("title")) {
                             post_Title = readTitle(parser);
-                        }
-                        if (tagName.equalsIgnoreCase("pubDate")) {
+                        } else if (tagName.equalsIgnoreCase("pubDate")) {
                             post_Time = readDate(parser);
-                        }
-                        if (tagName.equalsIgnoreCase("link")) {
+                        } else if (tagName.equalsIgnoreCase("link")) {
                             post_Link = readLink(parser);
-                        }
-                        if (tagName.equalsIgnoreCase("description")) {
+                        } else if (tagName.equalsIgnoreCase("description")) {
                             post_description = readDescription(parser);
-                        }
-                        if (tagName.equalsIgnoreCase("media:thumbnail")) {
+                        } else if (tagName.equalsIgnoreCase("media:thumbnail")) {
                             post_ImageURL = readImageURL(parser);
                         }
                         break;
@@ -99,9 +95,8 @@ public class Parser {
                             done = true;
                         } else if (tagName.equals("item")) {
 
-                            postItem = new PostItem(post_Title,post_ImageURL, post_Time,post_Link, post_description);
+                            postItem = new PostItem(post_Title, post_ImageURL, post_Time, post_Link, post_description);
                             postIitemList.add(postItem);
-                           //Log.d("The Image links are:", post_ImageURL);
 
                         }
                         break;
@@ -116,17 +111,18 @@ public class Parser {
         return postIitemList;
     }
 
-    private String readImageURL(XmlPullParser parser)  throws IOException, XmlPullParserException  {
+
+    public String readImageURL(XmlPullParser parser) throws IOException, XmlPullParserException {
         String ImageURL = "";
         String tag = parser.getName();
-        String xmlns = parser.getAttributeValue(null,"xmlns:media");
-        if (tag.equalsIgnoreCase("media:thumbnail")){
-            if (xmlns.equalsIgnoreCase("http://search.yahoo.com/mrss/")){
-                ImageURL = parser.getAttributeValue(null,"url");
+        String xmlns = parser.getAttributeValue(null, "xmlns:media");
+        if (tag.equalsIgnoreCase("media:thumbnail")) {
+            if (xmlns.equalsIgnoreCase("http://search.yahoo.com/mrss/")) {
+                ImageURL = parser.getAttributeValue(null, "url");
                 parser.nextTag();
             }
+
         }
-        Log.d("The Image links are:", post_ImageURL);
         return ImageURL;
 
     }
@@ -142,12 +138,12 @@ public class Parser {
     }
 
     private String readDate(XmlPullParser parser) throws IOException, XmlPullParserException, ParseException {
-        String date =  readText(parser);
+        String date = readText(parser);
         Date postDate = dateFormat.parse(date);
         //date = dateFormat.format(date);
         long now = new Date().getTime();
 
-        date = DateUtils.getRelativeTimeSpanString(postDate.getTime(),now, DateUtils.SECOND_IN_MILLIS).toString();
+        date = DateUtils.getRelativeTimeSpanString(postDate.getTime(), now, DateUtils.SECOND_IN_MILLIS).toString();
 
         return date;
     }
@@ -159,11 +155,11 @@ public class Parser {
 
     private String readText(XmlPullParser parser) throws IOException, XmlPullParserException {
         String result = "";
-            if (parser.next() == XmlPullParser.TEXT) {
+        if (parser.next() == XmlPullParser.TEXT) {
             result = parser.getText();
-               parser.nextTag();
+            parser.nextTag();
         }
         //Hence this result is sent to the PostItemAdapter indorf
-            return result;
+        return result;
     }
 }

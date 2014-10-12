@@ -37,29 +37,15 @@ import java.util.List;
 public class PostItemAdapter extends BaseAdapter {
 
     List<PostItem> dataSource;
-    Context  context;
+    Context context;
     LayoutInflater layoutInflater;
     LinearLayout linearLayout;
+
 
     public PostItemAdapter(Context context, int post_layout, List<PostItem> dataSource) {
         this.dataSource = dataSource;
         this.context = context;
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-    public Bitmap DownloadImage (String... URL){
-        String imageURL = URL[0];
-
-        Bitmap bitmap = null;
-        try {
-            // Download Image from URL
-            InputStream input = new java.net.URL(imageURL).openStream();
-            // Decode Bitmap
-            bitmap = BitmapFactory.decodeStream(input);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return bitmap;
-
     }
 
     @Override
@@ -83,35 +69,91 @@ public class PostItemAdapter extends BaseAdapter {
 
         View row = convertView;
         MyHolder holder = null;
-        if (row == null){
+        if (row == null) {
 
             row = layoutInflater.inflate(R.layout.post_layout, viewGroup, false);
             holder = new MyHolder(row);
             row.setTag(holder);
-        }else{
+        } else {
             holder = (MyHolder) row.getTag();
 
         }
         PostItem postItem = dataSource.get(i);
         holder.articleTitleText.setText(postItem.post_Title);
         holder.articlePublishDateText.setText(postItem.post_Time);
-       // holder.articleImage.setImageBitmap(BitmapFactory.decodeFile(postItem.post_ImageURL));
-       // holder.articleImage.setImageDrawable(Drawable.createFromPath(postItem.post_ImageURL));
-       // holder.articleImage.setImageURI(Uri.parse("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif"));
-       // holder.articleImage.setImageBitmap(loadImage(postItem.post_ImageURL));
+        // holder.articleImage.setImageBitmap(BitmapFactory.decodeFile(postItem.post_ImageURL));
+        // holder.articleImage.setImageDrawable(Drawable.createFromPath(postItem.post_ImageURL));
+        // holder.articleImage.setImageURI(Uri.parse("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif"));
+        // holder.articleImage.setImageBitmap(loadImage(postItem.post_ImageURL));
         //holder.articleImage.setImageBitmap(getBitmapFromURL("http://www.androidbegin.com/wp-content/uploads/2013/07/HD-Logo.gif"));
-        //holder.articleImage.setImageBitmap(DownloadImage(postItem.post_ImageURL));
+
+        String url = postItem.post_ImageURL;
+        if (postItem.post_ImageURL == null) {
+            holder.articleImage.setImageBitmap(BitmapFactory.decodeResource(viewGroup.getResources(), R.drawable.ubao_logo));
+        } else {
+            DownloadImage downloadImage = new DownloadImage();
+            Bitmap bm;
+            bm = downloadImage.doInBackground(postItem.post_ImageURL);
+
+            holder.articleImage.setImageBitmap(bm);
+
+        }
         holder.articlePublisher.setText("MICHUZI BLOG");
         return row;
     }
+
+    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
+        PostItem postItem;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            // Create a progressdialog
+            //mProgressDialog = new ProgressDialog(MainActivity.this);
+            // Set progressdialog title
+            //mProgressDialog.setTitle("Download Image Tutorial");
+            // Set progressdialog message
+            //mProgressDialog.setMessage("Loading...");
+            //mProgressDialog.setIndeterminate(false);
+            // Show progressdialog
+            //mProgressDialog.show();
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... URL) {
+
+            String imageURL = URL[0];
+
+            Bitmap bitmap = null;
+            try {
+                // Download Image from URL
+                InputStream input = new java.net.URL(imageURL).openStream();
+                // Decode Bitmap
+                bitmap = BitmapFactory.decodeStream(input);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap result) {
+            // Set the bitmap into ImageView
+            // image.setImageBitmap(result);
+            // Close progressdialog
+            // mProgressDialog.dismiss();
+
+        }
+    }
 }
-class MyHolder{
+
+class MyHolder {
     TextView articleTitleText;
     TextView articlePublishDateText;
     TextView articlePublisher;
     ImageView articleImage;
 
-    public MyHolder(View view){
+    public MyHolder(View view) {
         articleTitleText = (TextView) view.findViewById(R.id.txtTitle);
         articleImage = (ImageView) view.findViewById(R.id.imgPost);
         articlePublishDateText = (TextView) view.findViewById(R.id.txtTime);
@@ -120,4 +162,6 @@ class MyHolder{
     }
 
 }
+
+
 

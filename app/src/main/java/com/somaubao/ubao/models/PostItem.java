@@ -1,5 +1,7 @@
 package com.somaubao.ubao.models;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Tonny on 6/20/2014.
  */

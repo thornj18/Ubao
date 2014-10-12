@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/post_background">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        style=""
+        android:layout_width="100dp"
+        android:layout_height="136dp"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:src="@drawable/ubao_launcher" />
+
+        <TextView
+            android:id="@+id/txtEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ubao Blog"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+
+            android:textStyle="bold" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        style="@style/CardStyle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/txtEmail"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/postview_Title"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingLeft="8sp"
+            android:paddingRight="8sp"
+            android:paddingTop="8sp"
+            android:text="@string/test_text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnFlipper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="SUBSCRIBE"
+        android:textColor="@color/list_background_pressed" />
+
+
+</RelativeLayout>

@@ -2,72 +2,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ubao.Settings"
-    android:background="@color/listview_background_color">
+    android:background="@color/listview_background_color"
+    tools:context="com.ubao.Settings">
 
     <!-- TODO: Update blank fragment layout -->
 
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Accounts"
-        android:layout_marginTop="5dp"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
         android:background="@android:color/white"
-        android:padding="20dp"/>
+        android:padding="20dp"
+        android:text="Accounts"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <RelativeLayout
+        android:id="@+id/relativeLayout"
+        style="@style/CardStyle"
         android:layout_width="fill_parent"
         android:layout_height="100dp"
-        android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        style="@style/CardStyle"
-        android:id="@+id/relativeLayout">
+        android:layout_below="@+id/textView">
 
         <com.somaubao.ubao.models.RoundedImageview
+            android:id="@+id/view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/avatar_empty"
-            android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:id="@+id/view" />
+            android:src="@drawable/avatar_empty" />
 
 
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            >
+            android:layout_centerHorizontal="true">
 
             <TextView
+                android:id="@+id/txtFullName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
                 android:text="Tonny Firouzy Kayage"
-                android:id="@+id/txtFullName"
-                android:textStyle="bold"
-                />
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/txtEmail"
                 android:layout_width="wrap_content"
                 android:layout_height="39dp"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="thornj18@gmail.com"
-                android:id="@+id/txtEmail"
-                android:textStyle="italic"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
-
+                android:layout_alignParentStart="true"
+                android:text="thornj18@gmail.com"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="italic" />
 
 
         </RelativeLayout>
@@ -75,71 +72,71 @@
     </RelativeLayout>
 
     <Button
+        android:id="@+id/btnFlipper"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="ADD"
-        android:id="@+id/button"
         android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:text="ADD" />
 
     <TextView
+        android:id="@+id/postview_Title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Notifications"
-        android:background="@android:color/white"
-        android:layout_marginTop="10dp"
-        android:id="@+id/postview_Title"
-        android:padding="20dp"
-        android:layout_below="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="100dp"
-        android:layout_below="@+id/postview_Title"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnFlipper"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        android:text="Notifications"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout2"
         style="@style/CardStyle"
-        android:id="@+id/relativeLayout2">
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/postview_Title">
 
 
         <Switch
+            android:id="@+id/notSwitch"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:text="Enable Notifications"
-            android:id="@+id/notSwitch"
-            android:textSize="18sp"
-            android:checked="false"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:checked="false"
+            android:text="Enable Notifications"
+            android:textSize="18sp" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text=" Subscriptions "
-        android:background="@android:color/white"
-        android:id="@+id/textView2"
-        android:padding="20dp"
-        android:layout_below="@+id/relativeLayout2"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout2"
+        android:background="@android:color/white"
+        android:padding="20dp"
+        android:text=" Subscriptions "
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
+        android:id="@+id/btnSubs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EDIT SUBSCRIPTIONS"
-        android:id="@+id/btnSubs"
+        android:layout_alignEnd="@+id/btnFlipper"
+        android:layout_alignLeft="@+id/btnFlipper"
+        android:layout_alignRight="@+id/btnFlipper"
+        android:layout_alignStart="@+id/btnFlipper"
         android:layout_below="@+id/textView2"
-        android:layout_alignLeft="@+id/button"
-        android:layout_alignStart="@+id/button"
-        android:layout_alignRight="@+id/button"
-        android:layout_alignEnd="@+id/button"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:text="EDIT SUBSCRIPTIONS" />
 
 
 </RelativeLayout>

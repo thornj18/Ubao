@@ -1,110 +1,98 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/post_background"
-    tools:context="com.ubao.FirstTime_Subscriptions" >
+    tools:context="com.ubao.FirstTime_Subscriptions">
 
     <LinearLayout
-        android:id="@+id/relativeLayout"
-        style="@style/card"
-        android:layout_width="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="false"
         android:layout_alignParentStart="false"
         android:layout_alignParentTop="false"
         android:layout_centerHorizontal="true"
         android:layout_centerInParent="false"
+        android:layout_marginBottom="2dp"
+        android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="6dp" >
+        android:padding="6dp">
 
         <com.somaubao.ubao.models.RoundedImageview
+            android:id="@+id/view"
             android:layout_width="50dp"
-            android:layout_marginTop="10dp"
             android:layout_height="50dp"
-            android:src="@drawable/avatar_empty"
-           
-            android:id="@+id/view" />
+            android:layout_marginTop="10dp"
+            android:src="@drawable/avatar_empty" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="@string/username"
-            android:id="@+id/textView"
             android:padding="10dp"
-            />
+            android:text="@string/username"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/txtRoboto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/subscriptions_header_message"
+            android:text="@string/blogs_subscriptions_header_message"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/text"
             android:typeface="sans" />
 
     </LinearLayout>
 
-    <RelativeLayout
-        android:id="@+id/linearLayout2"
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/linearLayout3"
-        android:layout_below="@+id/relativeLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_centerInParent="true"
-        android:orientation="vertical" >
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/linearLayout"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:orientation="horizontal"
+
+        <Button
+            android:id="@+id/btnFlipper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/categoryLayout">
+            android:background="@color/white"
+            android:onClick="onFlip"
+            android:text="@string/blogs_label" />
 
-            </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
+        <FrameLayout
+            android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="fill_parent"
-            android:background="@drawable/borders"
-            android:layout_below="@+id/categoryLayout"
-            android:layout_centerHorizontal="true">
+            android:layout_gravity="center_horizontal">
 
-            <ListView
-                android:id="@+id/categoryListview"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:background="@color/lightgray" />
+        </FrameLayout>
 
-        </LinearLayout>
-
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/linearLayout3"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/linearLayout3">
+        android:orientation="vertical">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/submit"
-            android:background="@color/cat_red" />
+            android:background="@color/cat_red"
+            android:text="@string/submit" />
 
     </LinearLayout>
-
 
 
 </RelativeLayout>
