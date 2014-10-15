@@ -29,7 +29,7 @@ public class Newspapers extends Fragment {
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_checked, newspaperItems);
         newspaperList.setAdapter(arrayAdapter);
 
-
+ 
         return rootView;
 
     }
